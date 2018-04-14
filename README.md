@@ -9,5 +9,5 @@ Juliana Leal
 - [X] Movimentar tanque através de rotação
 - [X] Movimentar canhão através de rotação
 - [X] Atirar bala na direção que o canhão aponta
-- [ ] Aplicar texturas no tanque, canhão e bala
+- [X] Aplicar texturas no tanque, canhão e bala
 - [ ] Refatorar código e eliminar problemas
