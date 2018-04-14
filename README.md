@@ -5,7 +5,7 @@ Código para criar um tanque. Atividade para a disciplina de computação gráfi
 Anderson Guerra  
 Juliana Leal
 
-## Versão 0.1
+## Versão 0.2
 - [X] Movimentar tanque através de rotação
 - [X] Movimentar canhão através de rotação
 - [X] Atirar bala na direção que o canhão aponta
