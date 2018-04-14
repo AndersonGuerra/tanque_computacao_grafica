@@ -270,7 +270,7 @@ void ControlaTeclado(unsigned char key, int x, int y){
     glutPostRedisplay();
 }
 
-void Movimento(int value){
+void MovimentoBala(int value){
 
     if (movimento){
         posXt -= 10 * sin(rotatC * 3.14159 / 180);
@@ -278,7 +278,7 @@ void Movimento(int value){
     }
 
     glutPostRedisplay();
-    glutTimerFunc(velocidade,Movimento, 1);
+    glutTimerFunc(velocidade,MovimentoBala, 1);
 }
 
 
@@ -294,7 +294,7 @@ int main(int argc, char *argv[])
      glutMouseFunc(GerenciaMouse);
      glutSpecialFunc(TeclasEspeciais);
      glutKeyboardFunc(ControlaTeclado);
-     glutTimerFunc(velocidade, Movimento, 1);
+     glutTimerFunc(velocidade, MovimentoBala, 1);
      Inicializa();
      glutMainLoop();
 }
