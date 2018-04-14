@@ -1,12 +1,10 @@
 /*
     Autores: Anderson Guerra, Juliana Leal
-    Versão: 0.1
+    Versão: 0.2
 
     * O tanque já faz a movimentação básica necessária e também
     consegue atirar;
     * A rotação do tanque e do canhão são independentes entre si;
-    * É necessário aplicar a textura (uma das bibliotecas que podem ser utilizadas é
-                                     a SOIL - Simple Opengl Image Library).
 
 */
 
@@ -17,7 +15,7 @@
 #include <math.h>
 #include <iostream>
 #include <stdio.h>
-//#include <SOIL.h>
+#include <SOIL.h>
 
 using namespace std;
 
@@ -31,7 +29,7 @@ float posXt = 0, posYt = 0, posZt = 0;
 int movimento = false;
 
 
-/*static GLuint LoadPNG(char* filename){
+static GLuint LoadPNG(char* filename){
     GLuint texture = SOIL_load_OGL_texture
     (
         filename,
@@ -40,38 +38,47 @@ int movimento = false;
         SOIL_FLAG_INVERT_Y | SOIL_FLAG_NTSC_SAFE_RGB | SOIL_FLAG_COMPRESS_TO_DXT
     );
 
-    glEnable(GL_TEXTURE_2D);
+    if( 0 == texture )
+    {
+        printf( "erro do SOIL: '%s'\n", SOIL_last_result() );
+    }
+
     glBindTexture (GL_TEXTURE_2D, texture);
 
     glTexEnvi( GL_TEXTURE_ENV, GL_TEXTURE_ENV_MODE, GL_DECAL);
-    glColor3ub(255,255,255);
+    glColor3f (1.0,1.0,1.0);
 
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_REPEAT);
     glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_REPEAT);
 
-    glDisable(GL_TEXTURE_2D);
     return texture;
-}*/
+}
 
 void DesenhaQuadrado(int fator){
-    /*GLuint tex = LoadPNG("./canhao.png");
-    glBindTexture(GL_TEXTURE_2D, tex);*/
-    glBegin(GL_POLYGON);
-       glTexCoord2f(0.0, 0.0); glVertex2f(0+fator, 0+fator);
-       glTexCoord2f(1.0, 0.0); glVertex2f(xf+fator, 0+fator);
-       glTexCoord2f(1.0, 1.0); glVertex2f(xf+fator, yf+fator);
-       glTexCoord2f(0.0, 1.0); glVertex2f(0+fator, yf+fator);
+    glEnable(GL_TEXTURE_2D);
+    GLuint tex = LoadPNG("C:\\Users\\andgu\\dev\\tanque\\tanque.jpg");
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0, 0.0);glVertex2f(0+fator, 0+fator);
+        glTexCoord2f(1.0, 0.0);glVertex2f(xf+fator, 0+fator);
+        glTexCoord2f(1.0, 1.0);glVertex2f(xf+fator, yf+fator);
+        glTexCoord2f(0.0, 1.0);glVertex2f(0+fator, yf+fator);
      glEnd();
+    glDisable(GL_TEXTURE_2D);
 }
 
 void DesenhaCanhao(int fator){
-    glColor3f(1, 0, 0);
-    glBegin(GL_POLYGON);
-       glVertex2f(-10, -25);
-       glVertex2f(10, -25);
-       glVertex2f(10, 50);
-       glVertex2f(-10, 50);
-     glEnd();
+
+    glEnable(GL_TEXTURE_2D);
+    GLuint tex = LoadPNG("C:\\Users\\andgu\\dev\\tanque\\canhao.jpg");
+    glBindTexture(GL_TEXTURE_2D, tex);
+    glBegin(GL_QUADS);
+        glTexCoord2f(0.0, 0.0);glVertex2f(-5, -25);
+        glTexCoord2f(1.0, 0.0);glVertex2f(5, -25);
+        glTexCoord2f(1.0, 1.0);glVertex2f(5, 50);
+        glTexCoord2f(0.0, 1.0);glVertex2f(-5, 50);
+    glEnd();
+    glDisable(GL_TEXTURE_2D);
 }
 
 void DesenhaBala(int fator){
@@ -104,9 +111,9 @@ void Desenha(void)
     glLoadIdentity();
     glColor3f(r,g,b);
 
-    imprime(90, 10, 0, "F1 - Zoom");
-    imprime(90, -30, 0, "-> - Move");
-    imprime(90, -70, 0, "Clique - MAGIC!!!");
+    //imprime(90, 10, 0, "F1 - Zoom");
+    //imprime(90, -30, 0, "-> - Move");
+    //imprime(90, -70, 0, "Clique - MAGIC!!!");
 
     glPushMatrix();
     glTranslatef(posXt,posYt,posZt);
@@ -127,7 +134,6 @@ void Desenha(void)
     glPopMatrix();
 
     glFlush();
-
 
 }
 
